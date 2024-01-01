@@ -1,2 +1,3 @@
-# myShopDashboard link: 
-https://1m0nsr3p0.github.io/myShopDashboard/
+# myShopDashboard link:
+
+https://1m0nsr3p0.github.io/shop-client/
