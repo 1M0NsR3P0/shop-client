@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Details</title>
+    <script src="./JsBarcode.all.min.js"></script>
+    <link rel="stylesheet" href="./index.css">
+    <!-- <script src="./edit.js"></script> -->
+</head>
+
+<body>
+    <div class="back">
+        <a href="./sell.html">
+            <img src="./storage/back.svg" style="height: 50px; width: 50px;" alt="">
+        </a>
+    </div>
+    <div class="searchBar">
+
+        <!-- <div>
+            <input type="text" name="search" id="search" placeholder="search product">
+            <button class="btn">search</button>
+            <div class="editBtn"><button id="editorCaller">Edit</button></div>
+        </div> -->
+        <span id="err" style="color: red;"></span>
+    </div>
+    <div class="main-container">
+    </div>
+    <script>
+        const query = new URLSearchParams(window.location.search);
+        const querySearch = query.get("searchValue");
+        // const searchValue = [];
+        // document.querySelector('button').addEventListener('click', () => {
+            // const val = document.querySelector('#search').value;
+            // searchValue.push(val)
+            if (querySearch !== "") {
+                const data = fetch(`http://localhost:5000/getproduct/${querySearch}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            productFetcher(data.data)
+                        }
+                        if (data.erorr) {
+                            const err = data.message
+                            document.querySelector('#err').textContent = err;
+                            document.querySelector('.main-container').innerHTML = ""
+                        }
+                    })
+            }
+            if (querySearch === "") {
+                document.querySelector('#err').textContent = "please input something";
+                document.querySelector('.main-container').innerHTML = ""
+            }
+        // });
+
+        // document.querySelector('#editorCaller').addEventListener('click',()=>{
+        //     const data = fetch(`http://localhost:5000/getproduct/${searchValue[0]}`)
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 if (data.success) {
+        //                     // console.log(productFetcher())
+        //                     // productEditFetcher(data.data)
+        //                 }
+        //                 if (data.erorr) {
+        //                     const err = data.message
+        //                     document.querySelector('#err').textContent = err;
+        //                     document.querySelector('.main-container').innerHTML = ""
+        //                 }
+        //             })
+        // })
+
+
+    </script>
+    <script src="./product.js"></script>
+</body>
+
+</html>

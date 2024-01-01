@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Products</title>
+    <script src="./JsBarcode.all.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* height: 100vh;
+            width: 100vw; */
+            overflow: hidden;
+            background-color: rgb(193, 193, 193);
+        }
+
+        .show {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .img_thumb {
+            display: flex;
+            gap: 15px;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .showGuarranty {
+            display: flex;
+            gap: 2px;
+        }
+
+        .form-box {
+            margin-top: 5px;
+            background-color: rgb(193, 193, 193);
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        form {
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 10px;  
+            text-align: center;
+        }
+
+        textarea {
+            resize: both;
+            min-height: 19px;
+            min-width: 249px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        #forms-container {
+            /* flex-direction: column;
+            align-items: start; */
+        }
+
+        #forms-container>div {
+            /* height: 50px; */
+        }
+
+        input,
+        select {
+            height: 35px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            padding: 0 15px;
+            width: 180px !important;
+        }
+
+        .back {
+            cursor: pointer;
+        }
+
+        #Guaranty,
+        #Warranty {
+            height: 15px;
+            width: 15px;
+        }
+
+        #guaranty,
+        #warranty {
+            height: 25px;
+            width: 35px;
+        }
+
+        .imgDivva {
+            position: relative;
+            height: 150px;
+            width: 150px;
+            /* background-color: red; */
+        }
+
+        .deleteButton {
+            position: absolute;
+            top: 50%;
+            left: 20%;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            padding: 5px;
+        }
+
+        .viewButton {
+            position: absolute;
+            top: 50%;
+            left: 55%;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            padding: 5px;
+        }
+
+        .deleteButton:active,
+        .viewButton:active {
+            border: 1px solid gray;
+        }
+
+        .popUp {
+            height: 80vh;
+            width: 100vh;
+            position: fixed;
+            top: 10%;
+            left: 25%;
+            box-shadow: 0px 0px 30px 20px rgb(150, 150, 150);
+            z-index: 10;
+        }
+
+        .popUp img {
+            height: 100%;
+            width: 100%;
+        }
+
+        #back {
+            position: absolute;
+            left: 0;
+            background-color: antiquewhite;
+        }
+
+        #back:active {
+            border: 1px solid gray;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .successAlert {
+            border-radius: 15px;
+            height: 250px;
+            width: auto;
+            position: fixed;
+            top: 40%;
+            left: 40%;
+            box-shadow: 0px 0px 30px 20px rgb(150, 150, 150);
+            z-index: 10;
+            background-color: greenyellow;
+        }
+
+        .successAlert span {
+            height: 200px;
+        }
+
+        .bg {
+            background-color: rgb(193, 193, 193);
+        }
+
+        .Bulk {
+            border: none;
+            border-radius: 10px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .Bulk:hover {
+            padding: 6px;
+        }
+
+        .Bulk:active {
+            padding: 7px;
+        }
+
+
+        /* bulk product styles from here */
+        #table-container {
+            overflow: auto;
+            position: absolute;
+            left: 0;
+            height: 80vh;
+            width: 100%;
+            background-color: gainsboro;
+        }
+
+        #data {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        #data tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+
+        #data tr:nth-child(1) {
+            color: rgb(49, 49, 49);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        #data td {
+            padding: 10px;
+        }
+
+        #data tr:nth-child(odd) {
+            background-color: #d5d3d3;
+        }
+
+        #data tr:hover {
+            background-color: rgb(40, 40, 40);
+            color: white;
+        }
+
+        .alrt {
+            color: green;
+            font-size: larger;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+        }
+
+        /* CSS for the progress bar styles */
+        #progress-container {
+            border-radius: 10px;
+            width: 60%;
+            height: 15px;
+            border: 1px solid #ccc;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        #progress-bar {
+            border-radius: 10px;
+            height: 100%;
+            width: 100%;
+            background-color: #4caf50;
+            position: absolute;
+        }
+
+        #copyBarcodes {}
+    </style>
+</head>
+
+<body>
+
+    <div
+        style="background-color: rgb(193, 193, 193); display: flex; justify-content: space-between; align-items: center;  height: 100px;">
+
+        <div class="back"><a href="./dashboard.html"><img src="./storage/back.svg" style="height: 50px; width: 50px;"
+                    alt=""></a></div>
+        <!-- bulk product adding codes form here -->
+        <button class="Bulk"></button>
+
+        <div id="showBulkTable" style="margin-top: 80px;" class="hidden">
+            <div id="warning-container" style="display: none;">
+                <p>Loaded data detected. Do you want to clear it? <a href="#" id="clear-data-link"
+                        onclick="clearData()">Click here</a></p>
+            </div>
+            <div style="display: flex;flex-direction: column; justify-content: center; align-items: center; gap: 15px;">
+                <div id="bulkHeader" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+                    <h1 style="text-align: center;">Bulk Products Table </h1>
+                    <!-- Allow user to upload an excel file -->
+                    <input type="file" id="excelFile" accept=".xls, .xlsx, .csv" />
+                    <span style="cursor: pointer; display: flex; justify-content: center;align-items: center;"
+                        title="Click To see A Excel/CSV file Demo" onclick="loadDemo()"><img
+                            style="width: 30px; height: 30px;" src="./storage/info.svg" alt="info">info</span>
+                </div>
+
+            </div>
+            <div
+                style="display: flex; gap: 10px; justify-content: center; align-items: center; padding: 15px; margin-top: 25px;">
+                <button id="bulkSubmit" class="hidden" onclick="insertBulkData(event)">Submit</button>
+                <p id="barcodeEdit" class="hidden" style="color: red; " onclick="editBarcode()">change these barcode &
+                    try again
+                </p>
+                <p style="color: green;" id="realoads" class="hidden">realoads in <span id="sec"></span>sec... <button
+                        id="copyBarcodes" onclick="copyBarcodes()" onkeydown="handleKeyPress(event)">Copy Barcode
+                        (CTRL+C)</button>
+                </p>
+            </div>
+            <div id="table-container">
+                <table id="data"></table>
+            </div>
+        </div>
+        <div
+            style="display: flex; background-color: rgb(193, 193, 193); justify-content: end; overflow-x: auto; overflow-y: hidden; height: 200px; margin-top: 20px; padding: 50px;">
+            <div style='text-align: center; width: auto; ' id="barcode">
+                <img id="imon" style="width: 150px; height: 80px; object-fit: fill;" alt='Barcode Did Not Generated Yet'
+                    barcode />
+                <button title="input barcode manually" class="barcodeBtn" style="margin-left: 8px; padding: 3px;"
+                    onclick="inputBarcode()"> Input?</button>
+                <input type="text" name="barcodeInput" id="barcodeInput" class="hidden">
+            </div>
+            <div
+                style='padding-top:8px; text-align:center; font-size:15px; font-family: Source Sans Pro, Arial, sans-serif;'>
+            </div>
+        </div>
+    </div>
+    <div id="UploadForm" class="">
+        <div class="form-box" style="">
+            <form onsubmit="insertData(event)" style="">
+                <div class="popUp hidden">
+                    <span id="back"><img src="./storage/back.svg" style="height: 65px; width: 65px;" alt="back"></span>
+                    <img src="./storage/back.svg" alt="">
+                </div>
+
+                <div><input type="text" id="name" placeholder="Products Name" name="name" style="width: 350px;">
+                </div>  
+                <div><input type="text" placeholder="enter group coode" id="groupCode" name="groupCode"></div>
+
+                <div><input type="text" step="0.02" placeholder="Weight" name="weight"></div>
+                <div style=""><input type="text" placeholder="Size" name="size" class=""></div>
+
+                <div><input type="text" placeholder="Enter Manufacturer" name="manufacturer"></div>
+                <div>
+                    <input type="number" step="0.02" placeholder="Purchase Price" name="purhase">
+                </div>
+                <div>
+                    <input title="Costs" type="number" step="0.02" placeholder="Cost" name="cost" value=0>
+                </div>
+                <div title="Vat Cost">
+                    <input type="number" step="0.02" placeholder="Vat Includes" name="vat" value=0>
+                </div>
+                <div>
+                    <input type="number" step="0.02" placeholder="Percantage at Min" name="min">
+                </div>
+                <div>
+                    <input type="number" step="0.02" placeholder="Percantage at Max" name="max">
+                </div>
+                <div><input type="text" placeholder="Instrustions if any" name="instructions"></div>
+                
+                <div class="" style="">
+                    <select style="height: 30px; border-radius: 10px; outline: none; border: none;" name="materials"
+                        id="materials" title="Selet materials">
+                        <option value="steel">Steel</option>
+                        <option value="plastic">Plastic</option>
+                        <option value="iron">Iron</option>
+                        <option value="aloy">Aloy</option>
+                        <option value="copper">Copper</option>
+                        <option value="nichrome">Nichrome</option>
+                    </select>
+                </div>
+                <div class="" style="">
+                    <select style="height: 30px; border-radius: 10px; outline: none; border: none;" name="quality"
+                        id="quality" title="Select quality">
+                        <option value="Brand_new">Brand_new</option>
+                        <option value="standard">standard</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Medium_low">Medium_low</option>
+                        <option value="old">old</option>
+                        <option value="low_q">low_q</option>
+                    </select>
+                </div>
+                <div class="" style="" title="Pic Product Color">
+                    <input type="color" name="color" id="color" value="#0000FF">
+                </div>
+                <div style="margin: 0; padding: 0;"><input type="file" name="p_Img" id="p_img" accept="image/*" multiple
+                        name="pics" style="padding: 0;"></div>
+
+                <div style="max-height: 60px; min-height: 10px;">
+                    <textarea name="details" id="details" cols="20" rows="3"
+                        placeholder="Enter all the details" style="max-height: 100px;"></textarea>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <div><input type="checkbox" id="Guaranty" name="Guaranty"><span> Guaranty?</span></div>
+                    <input id="guaranty" type="text" class="hidden" placeholder="Time" name="GuarantyTime">
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <div><input type="checkbox" id="Warranty" name="Warranty"><span> Warranty?</span></div>
+                    <input id="warranty" type="text" class="hidden" placeholder="Time" name="WarrantyTime">
+                </div>
+                <div><button class="submit">submit</button></div>
+
+
+                <div class="successAlert hidden" style="height: 150px; padding: 15px; color: green;">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <h1 class="success">Your data has been added</h1>
+                        <img src="./storage/icons8-tick.svg" style="height: 64px; width: 64px; text-align: center;"
+                            alt="">
+                    </div>
+                    Closing in: <span style="color: red; font-weight: 700;" class="countDown"></span>
+                </div>
+            </form>
+            <div style="display: flex; justify-content: center;">
+                <div class="img_thumb"
+                    style="display: grid; grid-template-columns: repeat(4,1fr);  overflow-y: auto; height: 250px; width: 60%;">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="./bulkProductAddLIbrary/xcelTOjs.js"></script>
+    <script>
+        let manuallyInputedBarcode;
+        function inputBarcode() {
+            const barcodeInput = document.querySelector("#barcodeInput");
+            barcodeInput.classList.toggle("hidden")
+            barcodeInput.addEventListener("blur", () => {
+                manuallyInputedBarcode = barcodeInput.value;
+
+            })
+        }
+        document.querySelector("#Guaranty").addEventListener('change', (event) => {
+
+            if (event.target.checked) {
+                document.querySelector("#guaranty").classList.add("show")
+                document.querySelector("#guaranty").classList.add("showGuarranty")
+                document.querySelector("#guaranty").classList.remove("hidden")
+            }
+
+            if (!event.target.checked) {
+                document.querySelector("#guaranty").classList.add("hidden")
+                document.querySelector("#guaranty").classList.remove("showGuarranty")
+                document.querySelector("#guaranty").classList.remove("show")
+            }
+        });
+        document.querySelector("#Warranty").addEventListener('change', (event) => {
+
+            if (event.target.checked) {
+                document.querySelector("#warranty").classList.add("show")
+                document.querySelector("#warranty").classList.add("showGuarranty")
+                document.querySelector("#warranty").classList.remove("hidden")
+            }
+
+            if (!event.target.checked) {
+                document.querySelector("#warranty").classList.add("hidden")
+                document.querySelector("#warranty").classList.remove("showGuarranty")
+                document.querySelector("#warranty").classList.remove("show")
+            }
+        });
+        let ran = 0
+        document.querySelector('#name').addEventListener("blur", (event) => {
+            ran = Math.floor(Math.random() * 1237899);
+            const pName = event.target.value.slice(0, 5);
+            if (pName == "") {
+                document.querySelector("[barcode]").setAttribute("src", "")
+            }
+            else {
+                const barcodeElement = document.querySelector('#imon')
+                const barcodeValue = pName + "-" + ran;
+                JsBarcode(barcodeElement, barcodeValue, {
+                    format: 'CODE128',
+                    displayValue: true,
+                });
+
+            }
+        })
+        const imageArray = [];
+        const img_container = document.querySelector(".img_thumb");
+
+        document.querySelector("#p_img").addEventListener('change', () => {
+            const imgFiles = document.querySelector("input[multiple]");
+            for (let i = 0; i < imgFiles.files.length; i++) {
+                const imgDivva = document.createElement('div');
+                const img = document.createElement('img');
+                const deleteButton = document.createElement('div');
+                const viewButton = document.createElement('div');
+                deleteButton.classList.add('bg')
+                viewButton.classList.add('bg')
+                const file = imgFiles.files[i];
+                const src = URL.createObjectURL(file);
+                const fileName = file.name;
+                imageArray.push(fileName);
+                img.setAttribute("src", src);
+                img.classList.add('img');
+                deleteButton.innerText = "Delete";
+                viewButton.innerText = "View";
+                imgDivva.classList.add("imgDivva");
+                imgDivva.appendChild(deleteButton);
+                imgDivva.appendChild(viewButton);
+                deleteButton.classList.add("deleteButton");
+                viewButton.classList.add("viewButton");
+                imgDivva.appendChild(img);
+                img_container.append(imgDivva);
+
+                deleteButton.addEventListener('click', () => {
+                    img_container.removeChild(imgDivva);
+                    const index = imageArray.indexOf(fileName);
+                    if (index > -1) {
+                        imageArray.splice(index, 1);
+                    }
+                    console.log(imageArray)
+                });
+
+                viewButton.addEventListener('click', () => {
+                    const view = document.querySelector(".popUp");
+                    const imgSrc = img.getAttribute("src");
+                    view.classList.remove("hidden");
+                    document.querySelector(".popUp>img").setAttribute("src", imgSrc);
+                });
+            }
+
+            document.querySelector("#back").addEventListener('click', () => {
+                document.querySelector('.popUp').classList.add('hidden');
+            });
+        });
+        const insertData = async (event) => {
+            event.preventDefault()
+            const e = event.target;
+            const addCosts = parseInt(e.purhase.value) + parseInt(e.cost.value) + parseInt(e.vat.value);
+            const maxProfit = parseInt(e.max.value) / 100 * parseInt(addCosts)
+            const minProfit = parseInt(e.min.value) / 100 * parseInt(addCosts)
+            console.log(addCosts)
+            const formData = {
+                images: imageArray,
+                date: new Date(),
+                name: e.name.value,
+                groupCode: e.groupCode.value,
+                barCode: manuallyInputedBarcode ? manuallyInputedBarcode : `${e.name.value.slice(0, 5)}-${ran}`,
+                details: e.details.value,
+                weight: e.weight.value,
+                size: e.size.value,
+                materials: e.materials.value,
+                quality: e.quality.value,
+                color: e.color.value,
+                manufacturer: e.manufacturer.value,
+                purhase: e.purhase.value,
+                cost: e.cost.value,
+                vat: e.vat.value || 0,
+                min: `${e.min.value}%`,
+                max: `${e.max.value}%`,
+                minProfit: parseInt(minProfit),
+                maxProfit: parseInt(maxProfit),
+                instructions: e.instructions.value,
+                Gruaranty: e.Guaranty.checked,
+                Warranty: e.Warranty.checked,
+                guarantyValue: `${e.guaranty.value}`,
+                warrantyValue: `${e.warranty.value}`
+            }
+            const data = fetch('http://localhost:5000/products/add', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(data => data.json())
+                .then(data => {
+                    if (data.success) {
+                        openSuccessAlert()
+                    }
+                })
+            event.target.reset();
+            document.querySelector(".img_thumb").innerHTML = ''
+        }
+
+        // function getBarcode(p, ran) {
+        //     let title = p;
+        //     let barCode = ran;
+        //     document.querySelector("[barcode]").setAttribute("src", `https://barcode.tec-it.com/barcode.ashx?data=${title}-${barCode}&code=Code128&translate-esc=on`)
+        // }
+        function openSuccessAlert() {
+            const pop = document.querySelector(".successAlert");
+            const success = document.querySelector('.success')
+            success.classList.add('success')
+            const countdownSpan = document.querySelector('.successAlert span');
+            pop.classList.remove('hidden');
+            let countdown = 3
+            countdownSpan.textContent = countdown;
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownSpan.textContent = countdown;
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    pop.classList.add('hidden');
+                }
+            }, 500);
+        }
+
+        const numberInput = document.querySelectorAll("input[type='number']")
+        numberInput.forEach((Element) => {
+            Element.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                    event.preventDefault();
+                }
+            });
+        })
+
+    </script>
+
+</body>
+
+</html>

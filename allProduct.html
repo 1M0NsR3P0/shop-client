@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Item</title>
+    <link rel="stylesheet" href="./allProduct.css">
+    <style>
+        body {
+            background-color: rgb(193, 193, 193);
+        }
+
+        .selectProductList {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+        .menuConatiner{
+            width: 100%;
+            position: absolute;
+            top: 8%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .advancedSearch{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-right: 50px;
+        }
+        input{
+            padding: 8px 12px;
+            border-radius: 10px;
+            outline: none;
+            border: none;
+        }
+        input:active{
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="success" class="hidden" style="color: green; position: absolute; left: 40%; top: 50%;">
+        <h1>Data Updated Successfully!</h1>
+    </div>
+    <div class="selectProductList">
+        <div class="back">
+            <a href="./dashboard.html">
+                <img src="./storage/back.svg" style="height: 50px; width: 50px;" alt="">
+            </a>
+        </div>
+        <div class="menuConatiner">
+            <div id="advancedSearch" class="hidden advancedSearch">
+                <div><input type="text" name="sortSearch" id="sortSearch"></div>
+                <span>Sort by: </span><select name="sortby" class="" id="sortby">
+                    <option value="name">Name</option>
+                    <option value="gcode">Group Code</option>
+                    <option value="price">Price</option>
+                    <option value="brand">Brand Name</option>
+                </select>  <button id="sortButton">Sort</button>
+                
+            </div>
+            <!-- <span><input type="checkbox" name="checkbox" id="checkboxSort"> : Advanced Search</span> -->
+            <select name="selectWhichProduct" id="selectWhichProduct">
+                <option value="All">All</option>
+                <option value="Stock">In Stock</option>
+                <option value="Sold">Sold</option>
+            </select> <span>: Product list</span>
+        </div>
+    </div>
+    <div class="totalPRoduct">Total product: <span id="totalPRoduct"></span></div>
+    <div id="tableContainer"></div>
+    <script src="./allProduct.js"></script>
+</body>
+
+</html>

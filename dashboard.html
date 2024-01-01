@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./edit.js"></script>
+    <!-- <script src="./scanner/js/api.js"></script> -->
+    <!-- <script src="./scanner/js/scanner.js"></script> -->
+    <script src="./scanner/js/quagga.js"></script>
+    <script src="./chart/chartJs.js"></script>
+    <script src="./scanner/js//underscore.js"></script>
+    <style>
+        * {
+            text-decoration: none;
+        }
+
+        #scnanner-div video {
+            width: 500px;
+            height: 500px;
+            position: fixed;
+            /* top: 50%; */
+            left: 40%;
+            display: none;
+        }
+
+        body {
+            background-color: rgb(193, 193, 193);
+        }
+
+        button {
+            padding: 10px;
+            background-color: #959595;
+            border: none;
+            border-radius: 10px;
+        }
+
+        button:active {
+            border: 1px solid white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        #serachBtn {
+            padding: 5px;
+            /* background-color: rgb(134, 134, 134); */
+            border-radius: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: row-reverse;
+        }
+
+        .navLink {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+        }
+
+        video {
+            height: 450px;
+            width: 600px;
+            object-fit: fill;
+        }
+
+        #barcode-scanner {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* graph styles */
+        .graph-container {
+            background-color: rgb(193, 193, 193);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 100px;
+            padding: 20px;
+        }
+
+        .barChart {
+            width: 100vw;
+        }
+
+        .lineChart {
+            width: 100vw;
+        }
+
+        .SearchBox {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            margin-left: 25%;
+        }
+        .SearchBox button{
+            height: 35px;
+            width: 85px;
+        }
+        .suggestion{
+            background-color: hsla(0, 0%, 58%, 0.498);
+            color: #8a2be2;
+            list-style: none;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div style="text-align: center;">
+            <input required type="text" id="search" placeholder="enter product id to edit manually" class="searchBox">
+            <a id="serachBtn"><Button>Find</Button></a>
+            <button class="button" id="scanBtn" title="scan a barcode" onclick="barcodeScanner()">Scan</button>
+            <button class="button" id="scanMode" title="">Scan Mode</button>
+            <!-- <button type="button" id="disPlayEdit" class="disPlayEdit">Start Edit</button> -->
+        </div>
+        <div class="main-container" id="TheRoot">
+        </div>
+
+        <div class="navLink">
+            <div>
+                <a href="./sell.html"><button class="linkButton">Sell Item</button></a>
+            </div>
+            <div>
+                <a href="./addProdcut.html"><button class="linkButton">Add Product</button></a>
+            </div>
+            <div>
+                <a href="./allProduct.html"><button class="linkButton">All Product</button></a>
+            </div>
+            <div>
+                <a href="./accounting.html"><button class="linkButton">Manage Accounting</button></a>
+            </div>
+        </div>
+        <div>
+            <a href="./cctv.html"><button class="linkButton">CCTV</button></a>
+        </div>
+
+    </div>
+
+    </div>
+    <div class="SearchBox" id="SearchBox">
+        <div>
+            <input type="text" name="serchforanyproduct" id="productNameSerach" placeholder="Search product by Name">
+            <ul id="suggestions"></ul>
+        </div>
+        <button>Search</button>
+    </div>
+    <div id="scanner-container">
+        <div id="scnanner-div" class="scanner-cam"></div>
+        <div class="codes"></div>
+    </div>
+    <div class="graph-container">
+        <div class="barChart">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="lineChart">
+            <canvas id="myLineChart"></canvas>
+        </div>
+    </div>
+    <div class="product-view">
+        <ul class="nearestMatch"></ul>
+        <div class="theFoundProduct">
+
+        </div>
+    </div>
+    <script src="dahsboard.js"></script>
+    <script src="./chart/chart.js"></script>
+</body>
+
+</html>

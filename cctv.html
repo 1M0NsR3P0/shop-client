@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(193, 193, 193);
+        }
+
+        video {
+            height: 400px;
+            width: 600px;
+            object-fit: fill;
+        }
+
+        .cctv-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .goFull {
+            z-index: 500;
+            transform: scale(115%);
+        }
+        .goFullSingle{
+            z-index: 200;
+            height: 100vh;
+            width: 100vw;
+        }
+        .back{
+            display: flex;
+            justify-content: start;
+            /* align-items: center; */
+            gap: 50px;
+        }
+        .back button{
+            border: none;
+            border-radius: 10px;
+            background-color: gray;
+            padding: 5px 10px;
+            height: auto;
+            min-height: 40px;
+            width: 120px;
+        }
+        .back button:active{
+            outline: none;
+            border: 1px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back">
+        <a href="./dashboard.html">
+            <img src="./storage/back.svg" style="height: 50px; width: 50px;" alt="">
+        </a>
+        <button class="fullscreen">Full Screen</button>
+    </div>
+    <div class="cctv-container">
+        <video id="cameraFeed" controls preload autoplay muted loop
+            onclick="toggleVideo(this)"></video>
+        <video id="cameraFeed" controls preload autoplay muted loop
+            onclick="toggleVideo(this)"></video>
+        <video id="cameraFeed" controls preload autoplay muted loop
+            onclick="toggleVideo(this)"></video>
+        <video id="cameraFeed" controls preload autoplay muted loop
+            onclick="toggleVideo(this)"></video>
+        <video id="cameraFeed" controls preload autoplay muted loop
+            onclick="toggleVideo(this)"></video>
+        <video id="cameraFeed" controls preload autoplay muted loop
+            onclick="toggleVideo(this)"></video>
+    </div>
+    <script>
+        document.querySelector(".fullscreen").addEventListener("click", () => {
+            fullscreen()
+        })
+        function handleKeyPress(event) {
+            if (event.keyCode === 27) { // Check if the key pressed is "Esc" (key code 27)
+                document.querySelector(".cctv-container").classList.toggle("goFull")
+            }
+            if(event.ctrlKey && event.key === "Backspace"){
+                window.location.reload()
+            }
+        }
+
+        // Add an event listener to the document to listen for keydown events
+        document.addEventListener("keydown", handleKeyPress);
+        function toggleVideo(videoElement) {
+            // Toggle the full-screen class on the clicked video element
+            videoElement.classList.toggle("goFullSingle");
+
+            // Hide other video elements
+            const allVideos = document.querySelectorAll("video");
+            allVideos.forEach((video) => {
+                if (video !== videoElement) {
+                    video.classList.toggle("hidden");
+                }
+            });
+            // Hide the back button
+            document.querySelector(".back").classList.add("hidden");
+        }
+        const videoElement = document.querySelectorAll("#cameraFeed");
+
+        // Use the getUserMedia API to access the user's camera
+        videoElement.forEach(video=>{
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.error("Error accessing the camera:", error);
+            });
+        })
+        
+        function fullscreen() {
+   var i = document.querySelector(".cctv-container");
+if (i.requestFullscreen) {
+i.requestFullscreen();
+} else if (i.webkitRequestFullscreen) {
+i.webkitRequestFullscreen();
+} else if (i.mozRequestFullScreen) {
+i.mozRequestFullScreen();
+} else if (i.msRequestFullscreen) {
+i.msRequestFullscreen();
+}
+};
+    </script>
+</body>
+
+</html>

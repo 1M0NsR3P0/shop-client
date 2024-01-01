@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Example</title>
+    <script src="./JsBarcode.all.min.js"></script>
+</head>
+<body>
+    <img id="barcode" />
+    <script>
+        let p = "something"    
+        let  rran = 6665
+        getBarcode(p,rran)
+        function getBarcode(p,ran){
+            const barcodeElement = document.querySelector('#barcode')
+            const barcodeValue = `${p}-${ran}`;
+            JsBarcode(barcodeElement, barcodeValue, {
+            format: 'CODE128',
+            displayValue: true,
+        });}
+    </script>
+</body>
+</html>

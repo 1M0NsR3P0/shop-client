@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>invoice preview</title>
+    <style>
+        ::-webkit-scrollbar{
+            display: none;
+        }
+        body {
+            background-color: rgb(193, 193, 193);
+        }
+        #grandTotal{
+            margin-right: 50px;
+            text-align: right;
+        }
+        #main{
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            overflow-y: auto;
+        }
+        #invoiceContainer{
+            width: 80%;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back">
+        <a href="./allProduct.html">
+            <img src="./storage/back.svg" style="height: 50px; width: 50px;" alt="">
+        </a>
+    </div>
+    <h1 id="grandTotal"></h1>
+    <div id="main">
+        <div id="invoiceContainer">
+       
+        </div>
+    </div>
+    <script src="./invoiceShow.js"></script>
+</body>
+
+</html>

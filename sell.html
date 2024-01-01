@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Item</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./sell.css">
+    <script src="./product.js"></script>
+    <script src="./scanner/js/quagga.js"></script>
+    <script src="./scanner/js/underscore.js"></script>
+
+
+    <style>
+        #inCon {
+            overflow-y: auto;
+        }
+
+        .invoice {
+            position: sticky;
+            left: 28%;
+            top: 5%;
+            z-index: 150;
+            box-shadow: 0px 0px 15px 25px rgb(169, 169, 169);
+        }
+
+        .edit {
+            position: absolute;
+        }
+
+        .saved {
+            position: absolute;
+        }
+    </style>
+    <!-- <script src="./product.js"></script> -->
+</head>
+
+<body>
+    <div class="back">
+        <a href="./dashboard.html">
+            <img src="./storage/back.svg" style="height: 50px; width: 50px;" alt="">
+        </a>
+    </div>
+    <div style="text-align: right; position: absolute; right: 0; top: 20px;"><button class="print" id="printingPurposes">Print Preview</button></div>
+    <!-- invoice -->
+    <div style="margin-left:0px ; text-align: center;" class="hidden" id="inCon">
+        <div class="invoice" id="printingPurposes">
+            <div class="invoiceId">
+                <div logo>
+                    <img src="./storage/Screenshot 2023-10-03 220948.png" alt="Logo Image" class="logoImg">
+                </div>
+                <div class="dates">
+                    <div> <small>Date: 21-05-2023 11:56 PM</small></div>
+                    <div><small>invoice id: <span id="INVOICEid"></span></small></div>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="table imon506412" id="Table">
+                </table>
+            </div>
+            <div class="singnature">
+                <span> Rechived by: .....................</span>
+                <span>Date: ............................</span>
+            </div>
+        </div> 
+    </div>
+    <div class="hidden" id="soldItemSentMassage" style="z-index: 1000; text-align: center; color: green;">sold item sent
+        successfully!</div>
+    <!-- main element to show -->
+
+    <div style="display: flex;flex-direction: column; background-color: red;">
+        <div class="searchBar" style="">
+            <div>
+                <input type="text" name="search" id="search" placeholder="search product">
+                <button class="btn" id="searchBtn">search</button>
+                <button class="btn" id="scanBtn" onclick="barcodeScanner()">Scan</button>
+                <button class="btn" id="scanMode" title="">Scan Mode</button>
+                <!-- <div class="editBtn"><button id="editorCaller">Edit</button></div> -->
+            </div>
+            <span id="err" style="color: red;"></span>
+            <div id="searchResult" style="height: 120px;"></div>
+        </div>
+        <div class="cart-container">
+            <div style="width: 85%;">
+                <button class="edit">Edit</button>
+                <button class="saved hidden">Save</button>
+            </div>
+            <div class="cart">
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>GroupCode</th>
+                            <th>Bardocde</th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Rate
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th style="border: 1px solid black; border-right: none; border-left: none;">
+                                Total
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="sellBtn hidden" style="position: absolute; bottom: 2%; right: 8%;">
+        <button id="sellIt">Sell</button>
+        <button id="printIt">Print</button>
+    </div>
+    <div class="hidden">
+        <div id="scnanner-div" class="scanner-cam"></div>
+        <div class="codes"></div>
+    </div>
+    <script src="./sell.js"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>

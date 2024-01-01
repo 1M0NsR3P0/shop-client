@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Statement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(193, 193, 193);
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .back {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 25px 10px 0;
+        }
+
+        #costForm {
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 25px;
+        }
+
+        .Statement {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            margin: 10px 25px 10px 25px;
+            width: 90%;
+            gap: 150px;
+        }
+
+        input[type="date"] {
+            padding: 5px;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        input[type="date"]:active {
+            outline: none;
+        }
+        .incoming{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .incoming>div{
+            border: 1px solid rgb(168, 168, 168);
+            padding: 10px;
+            width: 100%;
+        }
+        .IncodeStates{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .IncodeStates div{
+            border: 1px solid rgb(168, 168, 168);
+            padding: 10px;
+            width: 100%;
+        }
+        .selectDate{
+            text-align: right;
+            margin-right: 25px;
+            margin-top: 10px;
+        }
+        .income{
+            color: green;
+            font-size: x-large;
+        }
+        .loss{
+            color: red;
+            font-size: larger;
+        }
+        .bold{
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back">
+        <a href="./accounting.html">
+            <img src="./storage/back.svg" style="height: 50px; width: 50px;" alt="">
+        </a>
+        <h1 class="header">Financial Statement (Daily)
+            <small style="font-size: small;" id="todaysDate"></small>
+        </h1>
+    </div>
+    <div id="costForm">
+        <h2 class="otherCostTitle" title="note and keep track of you other cost">Other Cost Today</h2>
+        <form onsubmit="costSubmit(event)">
+            <input type="number" name="food" id="foodCost" value=0> : Cost On Food
+            <input type="number" name="Marchandise" id="Marchandise" value=0> : Cost On Marchandise
+            <input type="number" name="other" id="foodCost" value=0> : Cost On Other <input type="text"
+                placeholder="keep Note of all the Other Types of cost and enter the total">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="selectDate">
+        <input type="date" name="selectDate" id="dateSelection" placeholder="select Date">
+        <button id="selectBtn">
+            Select</button>
+    </div>
+    <div class="Statement">
+        <div class="table">
+            <div class="incoming">
+                <h1>Incoming:</h1>
+                
+                <div class="totalSells bold" id="totalSells"></div>
+                <div class="productQuantitySold" id="productQuantitySold"></div>
+                <h2 class="EstimatedIncome">Total Estimated Income: <span class="income loss" id="income"></span></h2>
+            </div>
+            <div class="IncodeStates" id="IncodeStates">
+                <h1>OutGoing:</h1>
+                <div class="flex bold">
+                    <span>Our Original Product Price :</span> <span id="OriginalPrice"></span>
+                </div>
+                <div class="flex bold">
+                    <span>Our Original Product Cost :</span> <span id="OriginalCost"></span>
+                </div>
+                <div class="flex bold">
+                    <span>Our Vat Included :</span> <span id="OriginalVat"></span>
+                </div>
+                <div>
+                    <h3 class="TotalCstPerProduct">Total Cost(<small>For Product</small>): <span
+                            id="TotalCstPerProduct"></span></h3>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <h3>Daily Cost: <small id="dailyCost"></small></h3>
+                    <h5>Fixed Cost: <span id="fixedCost"></span></h5>
+                    <h3>Variable Cost: <span id="VariableCost">
+                            Food: <span id="forFood"></span><br>
+                            Marchandise: <span id="forMarchandise"></span>
+                            Others: <span id="forOthers"></span><br>
+                            Total Variable Cost: <span id="SubTotal"></span>
+                        </span></h3>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="./dailyStatement.js"></script>
+</body>
+
+</html>

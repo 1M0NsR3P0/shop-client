@@ -1,0 +1,319 @@
+
+        * {
+            /* font-size: small; */
+        }
+
+        body {
+            background-color: rgb(193, 193, 193);
+
+        }
+        .btn:active {
+            border: 1px solid gray;
+        }
+        .invoice {
+            border: 1px solid rgb(255, 255, 255);
+            height: auto;
+            min-height: 300px;
+            width: 800px;
+            background-color: white;
+        }
+
+        [logo] {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 60px;
+            margin-left: 5px;
+        }
+
+        .logoImg {
+            height: 50px;
+            width: 120px;
+            object-fit: fill;
+            border-radius: 10px;
+        }
+
+        .invoiceId {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .dates {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            flex-direction: column;
+            margin-right: 10px;
+        }
+
+        .table-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        table {
+            font-size: small;
+            width: 95%;
+            border: none;
+            border-top: 1px solid black;
+        }
+
+        #header {
+            color: rgb(0, 0, 0);
+        }
+
+        table tr th:nth-child(1) {
+            width: 50%;
+            text-wrap: wrap;
+            text-align: center;
+            border-color: black;
+            border-top: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            margin-bottom: 5px;
+        }
+
+        table tr td:nth-child(1) {
+            font-size: small;
+            width: 50%;
+            text-wrap: wrap;
+            text-align: left;
+            border-color: black;
+            border-top: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            margin-bottom: 5px;
+        }
+
+        table tr th:nth-child(2) {
+            width: 10%;
+            text-wrap: wrap;
+            text-align: center;
+            border-color: black;
+            border-top: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            margin-bottom: 5px;
+        }
+
+        table tr td:nth-child(2) {
+            width: 10%;
+            text-wrap: wrap;
+            text-align: center;
+            border-color: black;
+            border-top: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            margin-bottom: 5px;
+        }
+
+        table tr th:nth-child(3) {
+            width: 10%;
+            text-wrap: wrap;
+            text-align: center;
+            border-color: black;
+            border-top: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            margin-bottom: 5px;
+        }
+
+        table tr td:nth-child(3) {
+            width: 10%;
+            text-wrap: wrap;
+            text-align: center;
+            border-color: black;
+            border-top: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            margin-bottom: 5px;
+        }
+
+        table tr td:nth-child(4) {
+            width: 10%;
+            text-wrap: wrap;
+            text-align: center;
+            border-color: black;
+            border-top: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            margin-bottom: 5px;
+        }
+
+        table tr th:nth-child(4) {
+            width: 10%;
+            text-wrap: wrap;
+            text-align: center;
+            border-color: black;
+            border-top: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            margin-bottom: 5px;
+        }
+
+        table tr td:nth-child(5) {
+            width: 100%;
+            text-wrap: wrap;
+            text-align: center;
+            border-color: black;
+            border-top: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            margin-bottom: 5px;
+        }
+
+        table tr th:nth-child(5) {
+            width: 100%;
+            text-wrap: wrap;
+            text-align: center;
+            border-color: black;
+            border-top: 1px;
+            border-bottom: 1px;
+            border-style: solid;
+            border-left: none;
+            border-right: none;
+            margin-bottom: 5px;
+        }
+
+        .singnature {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            height: 200px;
+            width: 400px;
+            margin-left: 50px;
+            font-size: small;
+        }
+        .cart-container {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            width: 100vw;
+            height: 60vh;
+            position: absolute;
+            flex-direction: column;
+            top: 35%;
+            /* background-color: rgb(134, 134, 134); */
+        }
+
+        .cart {
+            background-color: whitesmoke;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            height: auto;
+            width: 85vw;
+            overflow-y: auto;
+            box-shadow: 5px 5px 15px 25px rgba(88, 88, 88, 0.334);
+        }
+
+        .head {
+            position: absolute;
+            top: 0;
+            border: 1px double rgb(0, 0, 0);
+            border-left: none;
+            border-right: none;
+            width: 85%;
+            display: flex;
+            column-gap: 15px;
+        }
+
+        .head span:nth-child(1) {
+            flex-grow: 5;
+            text-align: center;
+        }
+
+        .head span:nth-child(2) {
+            flex-grow: 1;
+            text-align: start;
+        }
+
+        .head span:nth-child(3) {
+            flex-grow: 1;
+            text-align: start;
+        }
+
+        .head span:nth-child(4) {
+            flex-grow: 1;
+            text-align: start;
+        }
+
+        .head span:nth-child(5) {
+            flex-grow: 1;
+            text-align: start;
+        }
+        
+        .print,.edit,.saved
+        {
+            border: none;
+            cursor: pointer;
+            background-color: rgb(103, 103, 103);
+            height: 40px;
+            width: auto;
+            margin-right: 30px;
+            border-radius: 10px;
+            color: white;
+            padding: 5px;
+            z-index: 100;
+        }
+        .print:active,.edit:active,.saved:active{
+            border: 1px solid gray;
+            background-color: rgb(84, 84, 84);
+        }
+        #doSell:active{
+            border: 1px solid rgb(221, 0, 0);
+            background-color: rgb(84, 84, 84);
+        }
+        #soldItemSentMassage{
+            position: fixed;
+            top: 50%;
+            left: 40%;
+        }
+
+
+
+
+        @media print {
+            /* body *{
+              display: none;
+            }
+             #printingPurposes {
+              display: block;
+            } */
+            
+          body {
+            margin: 5mm 80mm 1mm 0mm; /* top right bottom left */
+          }
+          
+          }
+          @page {
+            size: landscape;
+          }
+        

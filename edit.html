@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Manually</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="./edit.js"></script>
+    <script src="./priceCodeGen.js"></script>
+    <style>
+        body{
+            position: relative;
+        }
+        button {
+            padding: 10px;
+            background-color: beige;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .root{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .root>button{
+             position: absolute;
+            top: 10%;
+            left: 50%;
+        }
+        button:active {
+            border: 1px solid white;
+           
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 
+    <div style="text-align: center;">
+        <input type="text" id="search" placeholder="enter product id to edit manually">
+        <button class="button" id="btn">Serach</button>
+        <button class="button" id="reload" title="reload to see the upadates">Refetch</button>
+    </div> -->
+    
+    <div class="root">
+        <button type="button" id="disPlayEdit" class="disPlayEdit">Start Edit</button>
+    <div class="main-container" id="root"></div>
+    </div>
+
+    <div class="successAlert hidden" style="z-index: 10; height: 80px; padding: 15px; color: green;">
+        <h1 class="success">Your data has been Updated!</h1>
+    </div>
+    <div>
+       <a href="./dashboard.html"> <img src="./storage/back.svg" style="width: 58px;position: absolute; top: 50px; left: 50px;" alt=""></a>
+    </div>
+    <script src="./JsBarcode.all.min.js"></script>
+    <script src="./scanner/js/quagga.js"></script>
+    <script src="./scanner/js/underscore.js"></script>
+    <script>
+
+        // let searchValue
+        // document.querySelector('#search').addEventListener('blur', () => {
+        //     searchValue = document.querySelector('#search').value;
+        // })
+        // document.querySelector('#btn').addEventListener('click', () => {
+        //     if (searchValue !== "") {
+        //         const data = fetch(`http://localhost:5000/getproduct/${searchValue}`)
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 if (data.success) {
+        //                     const totalPrice = parseFloat(data.data?.purhase) + parseFloat(data.data?.cost) + parseFloat(data.data?.vat);
+        //                     const sellRangeMin = totalPrice + parseInt(data.data?.minProfit);
+        //                     const sellRangeMax = totalPrice + parseInt(data.data?.maxProfit);
+        //                     const price = (sellRangeMax + sellRangeMin) / 2
+        //                     document.querySelector('#err').style.display = "none";
+        //                     const pCode = genPriceCode(price.toString())
+        //                     productEditFetcher(data.data,pCode)
+        //                 }
+        //                 if (data.erorr) {
+        //                     const err = data.message
+        //                     document.querySelector('#err').textContent = err;
+        //                     document.querySelector('.main-container').innerHTML = ""
+        //                 }
+        //             })
+        //     }
+        //     if (searchValue === "") {
+        //         document.querySelector('#err').textContent = "please input something";
+        //         document.querySelector('.main-container').innerHTML = ""
+        //     }
+
+        // });
+        // document.querySelector('#reload').addEventListener('click', () => {
+        //     if (searchValue !== "") {
+        //         const data = fetch(`http://localhost:5000/getproduct/${searchValue}`)
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 if (data.success) {
+        //                     const totalPrice = parseFloat(data.data?.purhase) + parseFloat(data.data?.cost) + parseFloat(data.data?.vat);
+        //                     const sellRangeMin = totalPrice + parseInt(data.data?.minProfit);
+        //                     const sellRangeMax = totalPrice + parseInt(data.data?.maxProfit);
+        //                     const price = (sellRangeMax + sellRangeMin) / 2
+        //                     // document.querySelector('#err').style.display = "none";
+        //                     const pCode = genPriceCode(price.toString())
+        //                     productEditFetcher(data.data,pCode)
+        //                 }
+        //                 if (data.erorr) {
+        //                     const err = data.message
+        //                     document.querySelector('#err').textContent = err;
+        //                     document.querySelector('.main-container').innerHTML = ""
+        //                 }
+        //             })
+        //     }
+        //     if (searchValue === "") {
+        //         document.querySelector('#err').textContent = "please input something";
+        //         document.querySelector('.main-container').innerHTML = ""
+        //     }
+        // });
+
+        function openSuccessAlert() {
+            const pop = document.querySelector(".successAlert");
+            pop.classList.remove('hidden');
+            let countdown = 2
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    pop.classList.add('hidden');
+                }
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>
