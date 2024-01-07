@@ -1,7 +1,7 @@
 let search = ''
 let product_id = "-0"
-const ourDate = Date().slice(4,15)
-let random = ourDate + " " + Math.floor(Math.random()*99999999)
+const ourDate = Date().slice(4, 15)
+let random = ourDate + " " + Math.floor(Math.random() * 99999999)
 document.querySelector("#search").addEventListener('blur', () => {
     search = document.querySelector("#search").value;
 })
@@ -31,9 +31,9 @@ document.querySelector(".btn").addEventListener("click", async () => {
 
     // this funciton fetch a product by it's barcode and then add it to the cart table on click on the add button
     function fetchProduct(data) {
-        const tCost = parseInt(data.purhase?data.purhase: 0 ) + parseInt(data.cost?data.cost:0) + parseInt(data.vat?data.vat:0);
-        const min = parseInt(data.minProfit?data.minProfit:0)+tCost;
-        const max = parseInt(data.maxProfit?data.maxProfit:0) + tCost;
+        const tCost = parseInt(data.purhase ? data.purhase : 0) + parseInt(data.cost ? data.cost : 0) + parseInt(data.vat ? data.vat : 0);
+        const min = parseInt(data.minProfit ? data.minProfit : 0) + tCost;
+        const max = parseInt(data.maxProfit ? data.maxProfit : 0) + tCost;
         const price = (min + max) / 2;
         console.log(price)
         const searchResult = document.querySelector("#searchResult");
@@ -56,7 +56,7 @@ document.querySelector(".btn").addEventListener("click", async () => {
         <td><span class="delete-btn hidden"><button onclick="deleteRow(this)">Del</button></span> <span class="dataName" data-name>${data.name}</span></td>
         <td class="GcOdE">${data.groupCode}</td>
         <td data-barcode class="barcode">${data.barCode}</td>
-        <td><input  style="width:45px;" type="number" name="" class="qty" placeholder="QTY" data-qty value=1></td>
+        <td><input  style="width:45px;" type="number" name="" id="qtyFin" class="qty qtyFin" placeholder="Enter QTY" data-qty ></td>
         <td data-rate class="originalPrice">${price}</td>
         <td data-><input  style="width:65px;" type="number" class="p sellingPrice" value=${price} data-price></td>
         <td style="border:1px solid black;border-right:none;border-left:none;"><span class="total dataTotal" data-total>${price}</span></td>
@@ -72,8 +72,32 @@ document.querySelector(".btn").addEventListener("click", async () => {
             })
 
             if (!BarcodesArray.includes(BC)) {
+                const availableQty = parseInt(data.qty);
                 table.appendChild(tr)
+                // Iterate through all elements with the class "qty" in the newly created row
+                tr.querySelectorAll('.qty').forEach(qtyInput => {
+                    // Set the maximum value for each #qtyFin input in the new row
+                    qtyInput.setAttribute('max', availableQty);
+            
+                    // Add an event listener to each #qtyFin to check the entered quantity
+                    qtyInput.addEventListener('input', function () {
+                        const enteredQty = parseInt(this.value);
+            
+                        // Check if the entered quantity equals the available quantity
+                        if (enteredQty === availableQty) {
+                            this.style.color = 'red';
+                        } else {
+                            this.style.color = ''; // Reset the color if it's not equal
+                        }
+            
+                        // Call the updateTotalValue function whenever a change occurs in the table or discount input
+                        updateTotalValue();
+                    });
+                });
+            
+                updateTotalValue();
             }
+            
             else {
                 document.querySelector('#err').textContent = 'this barcode seems to be exist!';
             }
@@ -172,7 +196,7 @@ function updateTotalValue() {
 
     // Get the discount input value
     const discountInput = document.getElementById("discountInput");
-    const discount = parseInt(discountInput.value) || 0;
+    const discount = parseInt(discountInput?.value) || 0;
 
     // Calculate the discounted total
     const discountedTotal = total - discount;
@@ -221,36 +245,40 @@ savedBtn.addEventListener("click", () => {
 
 async function sendToServer(obj) {
     const dataTotal = document.querySelector(".imon506412 #totalValue")
-    const objArray = [{GrandTotal:dataTotal.textContent}]
+    const objArray = [{ GrandTotal: dataTotal.textContent }]
     const d = document.querySelectorAll("#Table>tr")
     let slidedRow = [...d]
     slidedRow = slidedRow.slice(1, slidedRow.length - 2)
-    slidedRow.forEach((element,index) => {
-        const dataName = document.querySelectorAll(".imon506412 .dataName") 
-        const GcOdE = document.querySelectorAll(".imon506412 .GcOdE")                      
+    slidedRow.forEach((element, index) => {
+        // console.log(element)
+        const dataName = document.querySelectorAll(".imon506412 .dataName")
+        const GcOdE = document.querySelectorAll(".imon506412 .GcOdE")
         const barcode = document.querySelectorAll(".imon506412 .barcode")
         const originalPrice = document.querySelectorAll(".imon506412 .originalPrice")
         const sellingPrice = document.querySelectorAll(".imon506412 .sellingPrice")
         const discount = document.querySelector("#discountInput").value;
+        const qty = document.querySelector("#qtyFin").value;
+        
         const objct = {
             date: new Date(),
-            name:dataName[index].textContent,
-            barcode:barcode[index].textContent,
-            groupcode:GcOdE[index].textContent,
-            originalPrice:originalPrice[index].textContent,
-            sellingPrice:sellingPrice[index].value,
+            name: dataName[index].textContent,
+            barcode: barcode[index].textContent,
+            qty: qty,
+            groupcode: GcOdE[index].textContent,
+            originalPrice: originalPrice[index].textContent,
+            sellingPrice: sellingPrice[index].value,
         }
         objArray.push(objct)
     })
 
-console.log(objArray)
+    // console.log(objArray)
     try {
         const response = await fetch('http://localhost:5000/sell/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ data: objArray, invoiceId: random}), // Send the total value as JSON data
+            body: JSON.stringify({ data: objArray, invoiceId: random }), // Send the total value as JSON data
         });
 
         if (response.ok) {
@@ -269,14 +297,14 @@ document.querySelector("#sellIt").addEventListener("click", () => {
     sendToServer()
 })
 
-document.querySelector("#printIt").addEventListener("click",()=>{
+document.querySelector("#printIt").addEventListener("click", () => {
     const printingPage = document.querySelector("#printingPurposes")
     window.print(printingPage)
 
 })
 
 function handleKeyPress(event) {
-    
+
     if (event.key === "Enter") {
         const searchValue = document.getElementById("search").value;
         const url = `./productView.html?searchValue=${searchValue}`;
@@ -287,8 +315,8 @@ function handleKeyPress(event) {
         const url = `./dashboard.html`;
         window.location.href = url
     }
-    if(event.key === "+"){
-        if(document.querySelector("#searchResult").innerHTML!==""){
+    if (event.key === "+") {
+        if (document.querySelector("#searchResult").innerHTML !== "") {
             document.querySelector("#cartHandle").click()
         }
     }
@@ -306,7 +334,7 @@ modeOnBtn.addEventListener("click", () => {
     modeOnBtn.textContent = isModeON ? "Turn OFF" : "Scane Mode";
     localStorage.setItem("scanmode", isModeON);
     isModeON && barcodeScanner();
-    if(!isModeON){
+    if (!isModeON) {
         Quagga.stop()
     }
 });
@@ -323,7 +351,7 @@ async function barcodeScanner() {
                     return self.handleError(err);
                 }
                 Quagga.start();
-                
+
             });
         },
         handleError: function (err) {

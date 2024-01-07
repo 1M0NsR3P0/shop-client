@@ -34,6 +34,8 @@ src="./storage/images/barcodenotfound.png" alt="" id="barcode" ></div>
                     <div style="width: 250px;"><span class="names">Size: </span><span>${data?.size}</span></div>
                     <div style="width: 250px;"><span class="names">Color: </span><span>${data?.color}</span></div>
                     <div style="width: 250px;"><span class="names">Weight: </span><span>${data?.weight}</span></div>
+                    <div style="width: 250px;"><span class="names">Quantity: </span><span>${data?.qty}</span></div>
+                    <div style="width: 250px;"><span class="names">Sku: </span><span>${data?.sku}</span></div>
                 </div>
                 <div class="mYflex">
                     <div style="width: 250px;"><span class="names">Materials: </span><span>${data?.materials}</span></div>

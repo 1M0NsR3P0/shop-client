@@ -341,8 +341,9 @@
 
                 <div><input type="text" id="name" placeholder="Products Name" name="name" style="width: 350px;">
                 </div>  
-                <div><input type="text" placeholder="enter group coode" id="groupCode" name="groupCode"></div>
-
+                <div><input type="text" placeholder="enter group code" id="groupCode" name="groupCode"></div>
+                <div><input type="text" placeholder="enter SKU" id="sku" name="sku"></div>
+                <div><input type="number" placeholder="Quantity" id="qty" title="quantity per group/SKU tracking" name="qty"></div>
                 <div><input type="text" step="0.02" placeholder="Weight" name="weight"></div>
                 <div style=""><input type="text" placeholder="Size" name="size" class=""></div>
 
@@ -351,10 +352,10 @@
                     <input type="number" step="0.02" placeholder="Purchase Price" name="purhase">
                 </div>
                 <div>
-                    <input title="Costs" type="number" step="0.02" placeholder="Cost" name="cost" value=0>
+                    <input title="Costs" type="number" step="0.02" placeholder="Total Cost" name="cost">
                 </div>
                 <div title="Vat Cost">
-                    <input type="number" step="0.02" placeholder="Vat Includes" name="vat" value=0>
+                    <input type="number" step="0.02" placeholder="Total Vat" name="vat">
                 </div>
                 <div>
                     <input type="number" step="0.02" placeholder="Percantage at Min" name="min">
@@ -543,6 +544,8 @@
                 date: new Date(),
                 name: e.name.value,
                 groupCode: e.groupCode.value,
+                sku: e.sku.value,
+                qty: parseInt(e.qty.value),
                 barCode: manuallyInputedBarcode ? manuallyInputedBarcode : `${e.name.value.slice(0, 5)}-${ran}`,
                 details: e.details.value,
                 weight: e.weight.value,

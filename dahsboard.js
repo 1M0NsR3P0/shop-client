@@ -236,6 +236,8 @@ document.querySelector("#SearchBox button").addEventListener("click", async () =
                                 <div style="width: 250px;"><span class="names">Size: </span><span>${foundProduct?.size}</span></div>
                                 <div style="width: 250px;"><span class="names">Color: </span><span>${foundProduct?.color}</span></div>
                                 <div style="width: 250px;"><span class="names">Weight: </span><span>${foundProduct?.weight}</span></div>
+                                <div style="width: 250px;"><span class="names">SKU: </span><span>${foundProduct?.sku}</span></div>
+                                <div style="width: 250px;"><span class="names">Quantity: </span><span>${foundProduct?.qty}</span></div>
                             </div>
                             <div class="mYflex">
                                 <div style="width: 250px;"><span class="names">Materials: </span><span>${foundProduct?.materials}</span></div>

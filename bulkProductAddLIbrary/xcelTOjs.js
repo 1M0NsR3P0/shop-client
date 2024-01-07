@@ -198,7 +198,7 @@ document.getElementById('excelFile').addEventListener('change', async (event) =>
       console.error("Error reading file:", error);
     } finally {
       loading = false;
-      console.log(loading);
+      // console.log(loading);
     }
   }
 });
@@ -318,6 +318,7 @@ async function insertBulkData(e) {
       copyMe.push(element[1]);
     }
 
+    
     for (const element of newArray) {
       const barcodeExists = await checkBarcode(element[1].toString());
 
@@ -344,12 +345,15 @@ async function insertBulkData(e) {
         return;
       }
 
+      // console.log(element[16])
       const formData = {
         images: element[16].split(',') || [element[16]],
         date: new Date(),
         name: element[0],
         barCode: element[1],
         groupCode: element[2],
+        sku: element[19],
+        qty: element[20],
         details: element[3],
         weight: element[4],
         size: element[5],
